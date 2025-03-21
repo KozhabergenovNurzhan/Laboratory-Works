@@ -16,24 +16,24 @@ x, y = WIDTH // 2, HEIGHT // 2
 clock = pygame.time.Clock()
 run = True
 while run:
-    screen.fill(WHITE)
-    pygame.draw.circle(screen, RED, (x, y), BALL_RADIUS)
-    pygame.display.update()
+  screen.fill(WHITE)
+  pygame.draw.circle(screen, RED, (x, y), BALL_RADIUS)
+  pygame.display.update()
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP] and y - BALL_RADIUS - STEP >= 0:
-        y -= STEP
-    if keys[pygame.K_DOWN] and y + BALL_RADIUS + STEP <= HEIGHT:
-        y += STEP
-    if keys[pygame.K_LEFT] and x - BALL_RADIUS - STEP >= 0:
-        x -= STEP
-    if keys[pygame.K_RIGHT] and x + BALL_RADIUS + STEP <= WIDTH:
-        x += STEP
+  keys = pygame.key.get_pressed()
+  if keys[pygame.K_UP] and y - BALL_RADIUS - STEP >= 0:
+    y -= STEP
+  if keys[pygame.K_DOWN] and y + BALL_RADIUS + STEP <= HEIGHT:
+    y += STEP
+  if keys[pygame.K_LEFT] and x - BALL_RADIUS - STEP >= 0:
+    x -= STEP
+  if keys[pygame.K_RIGHT] and x + BALL_RADIUS + STEP <= WIDTH:
+    x += STEP
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      run = False
 
-    clock.tick(60)  
+  clock.tick(60)  
 
 pygame.quit()
