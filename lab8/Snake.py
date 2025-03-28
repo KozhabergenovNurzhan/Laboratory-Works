@@ -112,6 +112,7 @@ class MAIN:
     self.level = 1
     self.move_delay = 280
     self.last_move_time = pygame.time.get_ticks()
+    self.font = pygame.font.Font("font/PoetsenOne-Regular.ttf", 40)
 
   def update(self):
     if pygame.time.get_ticks() - self.last_move_time > self.move_delay:
@@ -119,6 +120,34 @@ class MAIN:
       self.check_collision()
       self.check_fail()
       self.last_move_time = pygame.time.get_ticks()
+  
+  def draw_stats(self):
+    self.snake = SNAKE()
+    self.fruit = FRUIT()
+    self.score = 0
+    self.level = 1
+    self.move_delay = 280
+    self.last_move_time = pygame.time.get_ticks()
+    self.font = pygame.font.Font("your_font.ttf", 40)  # Load custom font
+
+  def draw_stats(self):
+    apple_size = 40  # Resize if necessary
+    apple_icon = pygame.transform.scale(apple, (apple_size, apple_size))  # Scale apple image
+
+    # Positions
+    apple_x = 10
+    apple_y = screen.get_height() - apple_size - 10  # Bottom-left corner
+    text_x = apple_x + apple_size + 10  # Place counter next to apple
+    level_x = text_x + 100  # Position level further to the right
+
+    # Render texts
+    score_text = self.font.render(f"{self.score}", True, (0, 0, 0))
+    level_text = self.font.render(f"Level: {self.level}", True, (0, 0, 0))
+
+    # Draw on screen
+    screen.blit(apple_icon, (apple_x, apple_y))  # Draw apple icon
+    screen.blit(score_text, (text_x, apple_y))  # Draw apple counter
+    screen.blit(level_text, (level_x, apple_y))  # Draw level info
 
   def check_collision(self):
     if self.fruit.pos == self.snake.body[0]:
@@ -156,9 +185,21 @@ while True:
     if event.type == pygame.QUIT:
       pygame.quit()
       sys.exit()
+    if event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_UP and main_game.snake.direction.y == 0:
+        main_game.snake.direction = Vector2(0, -1)
+      elif event.key == pygame.K_DOWN and main_game.snake.direction.y == 0:
+          main_game.snake.direction = Vector2(0, 1)
+      elif event.key == pygame.K_LEFT and main_game.snake.direction.x == 0:
+        main_game.snake.direction = Vector2(-1, 0)
+      elif event.key == pygame.K_RIGHT and main_game.snake.direction.x == 0:
+        main_game.snake.direction = Vector2(1, 0)
+
   main_game.update()
   screen.fill((175,215,70))
   main_game.snake.draw_snake()
   main_game.fruit.draw_fruit()
+  main_game.draw_stats()
+  
   pygame.display.update()
   clock.tick(60)
